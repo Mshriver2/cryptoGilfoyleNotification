@@ -3,6 +3,14 @@ import http.client
 import time
 from playsound import playsound
 
+print("Enter coin full name: ")
+
+userCoin = input()
+
+print("\nEnter time interval to monitor in mins: ")
+
+userMins = input()
+
 while 1==1:
 
     conn = http.client.HTTPSConnection("coingecko.p.rapidapi.com")
@@ -12,16 +20,17 @@ while 1==1:
     	'x-rapidapi-host': "coingecko.p.rapidapi.com"
     	}
 
-    conn.request("GET", "/simple/price?ids=dogecoin&vs_currencies=usd&include_24hr_change=true", headers=headers)
+    conn.request("GET", "/simple/price?ids=%s&vs_currencies=usd&include_24hr_change=true" % (userCoin), headers=headers)
 
     res = conn.getresponse()
     data = res.read()
 
     jsonData = json.loads(data)
 
-    cryptovalue1 = (jsonData["dogecoin"]["usd"])
+    cryptovalue1 = (jsonData[userCoin]["usd"])
 
-    time.sleep(600)
+    # sleeps for the users desired interval 
+    time.sleep(int(userMins)*60)
 
 
     conn = http.client.HTTPSConnection("coingecko.p.rapidapi.com")
@@ -31,25 +40,25 @@ while 1==1:
     	'x-rapidapi-host': "coingecko.p.rapidapi.com"
     	}
 
-    conn.request("GET", "/simple/price?ids=dogecoin&vs_currencies=usd&include_24hr_change=true", headers=headers)
+    conn.request("GET", "/simple/price?ids=%s&vs_currencies=usd&include_24hr_change=true" % (userCoin), headers=headers)
 
     res = conn.getresponse()
     data = res.read()
 
     jsonData = json.loads(data)
 
-    cryptovalue2 = (jsonData["dogecoin"]["usd"])
+    cryptovalue2 = (jsonData[userCoin]["usd"])
 
     sumValues = cryptovalue2 / cryptovalue1
 
     if sumValues >= 1.01:
-        print("Dogecoin increased by 1%+ in the last 30 mins!")
+        print("%s increased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
         playsound("cash.wav")
     elif sumValues <= 0.99:
-        print("Dogecoin decreased by 1%+ in the last 30 mins!")
+        print("%s decreased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
         playsound("suffer.wav")
     else:
-        print("Dogecoin did not increase or decrease by 1%+ in the last 30 mins!")
+        print("%s did not increase or decrease by 1 percent+ in the last %s mins!" % (userCoin, userMins))
 
     print("sumValues equals %s" % (sumValues))
 
