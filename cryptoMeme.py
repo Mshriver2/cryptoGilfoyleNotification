@@ -2,6 +2,8 @@ import json
 import http.client
 import time
 from playsound import playsound
+import subprocess
+from subprocess import call
 
 print("Enter coin full name: ")
 
@@ -51,14 +53,34 @@ while 1==1:
 
     sumValues = cryptovalue2 / cryptovalue1
 
-    if sumValues >= 1.01:
+    if sumValues >= 1.001:
         print("%s increased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
         playsound("cash.wav")
-    elif sumValues <= 0.99:
+
+        percentValue = (sumValues * 100) - 100
+
+        bashCommand = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
+
+        call(["espeak", bashCommand, "--stdout | paplay"])
+
+        # plays voice audio
+        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        # output, error = process.communicate()
+
+    elif sumValues <= 0.999:
         print("%s decreased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
         playsound("suffer.wav")
+
+        percentValue = (1 - sumValues) * 100
+        bashCommand = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
+
+
+        call(["espeak", bashCommand, "--stdout | paplay"])
+        # plays voice audio
+        #process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        #output, error = process.communicate()
     else:
-        print("%s did not increase or decrease by 1 percent+ in the last %s mins!" % (userCoin, userMins))
+        print("%s did not increase or decrease by 1 percent+ in the last %s mins!\n" % (userCoin, userMins))
 
     print("sumValues equals %s" % (sumValues))
 
