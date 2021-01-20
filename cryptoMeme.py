@@ -2,7 +2,6 @@ import json
 import http.client
 import time
 from playsound import playsound
-import subprocess
 from subprocess import call
 
 print("Enter coin full name: ")
@@ -58,29 +57,22 @@ while 1==1:
         playsound("cash.wav")
 
         percentValue = (sumValues * 100) - 100
+        speakText = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
 
-        bashCommand = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
-
-        call(["espeak", bashCommand, "--stdout | paplay"])
-
-        # plays voice audio
-        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        # output, error = process.communicate()
+        #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
+        call('espeak '+speakText+' --stdout | paplay', shell=True)
 
     elif sumValues <= 0.999:
         print("%s decreased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
         playsound("suffer.wav")
 
         percentValue = (1 - sumValues) * 100
-        bashCommand = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
+        speakText = 'Hello mother fucker, " + userCoin + " is down " + str(percentValue) + " percent in the last 30 mins'
 
+        #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
+        call('espeak '+speakText+' --stdout | paplay', shell=True)
 
-        call(["espeak", bashCommand, "--stdout | paplay"])
-        # plays voice audio
-        #process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        #output, error = process.communicate()
     else:
         print("%s did not increase or decrease by 1 percent+ in the last %s mins!\n" % (userCoin, userMins))
 
     print("sumValues equals %s" % (sumValues))
-
