@@ -12,6 +12,10 @@ print("\nEnter time interval to monitor in mins: ")
 
 userMins = input()
 
+print("\nEnter percentage to monitor (whole numbers only): ")
+
+userPercentage = input()
+
 while 1==1:
 
     conn = http.client.HTTPSConnection("coingecko.p.rapidapi.com")
@@ -52,11 +56,13 @@ while 1==1:
 
     sumValues = cryptovalue2 / cryptovalue1
 
+    increasePercent = (int(userPercentage) / 100) + 1.0
 
-    sumValues = 1.05
+    decreasePercent = abs((int(userPercentage) / 100) - 1.0)
 
-    if sumValues >= 1.001:
-        print("%s increased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
+
+    if sumValues >= increasePercent:
+        
         playsound("cash.wav")
 
         percentValue = round(((sumValues * 100) - 100), 3)
@@ -65,8 +71,10 @@ while 1==1:
         #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
         call('espeak '+speakText+' --stdout | paplay', shell=True)
 
-    elif sumValues <= 0.999:
-        print("%s decreased by 1 percent+ in the last %s mins!" % (userCoin, userMins))
+        print("%s increased by %s percent in the last %s mins!" % (userCoin, percentValue, userMins))
+
+    elif sumValues <= decreasePercent:
+        
         playsound("suffer.wav")
 
         percentValue = round((1 - sumValues) * 100, 3)
@@ -74,6 +82,8 @@ while 1==1:
 
         #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
         call('espeak '+speakText+' --stdout | paplay', shell=True)
+
+        print("%s decreased by %s percent in the last %s mins!" % (userCoin, percentValue, userMins))
 
     else:
         print("%s did not increase or decrease by 1 percent+ in the last %s mins!\n" % (userCoin, userMins))
