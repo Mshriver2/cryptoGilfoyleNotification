@@ -1,6 +1,7 @@
 import json
 import http.client
 import time
+import datetime
 from playsound import playsound
 from subprocess import call
 import colorama
@@ -73,7 +74,12 @@ while 1==1:
         #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
         call('espeak '+speakText+' --stdout | paplay', shell=True)
 
-        print(Fore.GREEN + "%s increased by %s percent in the last %s mins!" % (userCoin, percentValue, userMins))
+        print(Fore.GREEN + "%s increased by %s percent in the last %s mins!\n" % (userCoin, percentValue, userMins))
+
+        # ct stores current time 
+        ct = datetime.datetime.now() 
+
+        print("%s price as of %s - %s" % (userCoin, ct, cryptovalue2))
 
     elif sumValues <= decreasePercent:
         
@@ -85,9 +91,19 @@ while 1==1:
         #speaks information using espeak, shell must be set to True because it is not working in an emulated environment
         call('espeak '+speakText+' --stdout | paplay', shell=True)
 
-        print(Fore.RED + "%s decreased by %s percent in the last %s mins!" % (userCoin, percentValue, userMins))
+        print(Fore.RED + "%s decreased by %s percent in the last %s mins!\n" % (userCoin, percentValue, userMins))
+
+         # ct stores current time 
+        ct = datetime.datetime.now() 
+
+        print("%s price as of %s - %s" % (userCoin, ct, cryptovalue2))
 
     else:
         print("\n%s did not increase or decrease by %s percent in the last %s mins!\n" % (userCoin, userPercentage, userMins))
+
+        # ct stores current time 
+        ct = datetime.datetime.now() 
+
+        print("%s price as of %s - %s" % (userCoin, ct, cryptovalue2))
 
     print("sumValues equals %s" % (sumValues))
