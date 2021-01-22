@@ -81,6 +81,7 @@ while 1==1:
 
         print("%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
 
+
     elif sumValues <= decreasePercent:
         
         playsound("suffer.wav")
@@ -98,6 +99,7 @@ while 1==1:
 
         print("%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
 
+
     else:
         print(Fore.WHITE + "\n%s did not increase or decrease by %s percent in the last %s mins!\n" % (userCoin, userPercentage, userMins))
 
@@ -107,3 +109,6 @@ while 1==1:
         print(Fore.WHITE + "%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
 
     print(Fore.WHITE + "sumValues equals %s" % (sumValues))
+
+    #prints the spacer
+    print("########################################################")
