@@ -6,6 +6,21 @@ from playsound import playsound
 from subprocess import call
 import colorama
 from colorama import Fore, Style
+from os import system, name 
+
+####### SCREEN CLEARING FUNCTION ######
+  
+def clear(): 
+  
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+  
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear') 
+
+#####################################
 
 print("Enter coin full name: ")
 
@@ -18,6 +33,13 @@ userMins = input()
 print("\nEnter percentage to monitor (whole numbers only): ")
 
 userPercentage = input()
+
+# clears the screen
+clear()
+
+print("########################################################")
+print("[Coin] %s [Time] %s minutes [Percentage Change] %s" % (userCoin, userMins, userPercentage))
+print("########################################################\n")
 
 while 1==1:
 
@@ -108,7 +130,7 @@ while 1==1:
 
         print(Fore.WHITE + "%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
 
-    print(Fore.WHITE + "sumValues equals %s" % (sumValues))
+    print(Fore.WHITE + "sumValues equals %s\n" % (sumValues))
 
     #prints the spacer
-    print("########################################################")
+    print("########################################################\n")
