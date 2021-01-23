@@ -101,7 +101,7 @@ while 1==1:
         # ct stores current time 
         ct = datetime.datetime.now() 
 
-        print("%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
+        print("%s price as of %s - %s USD\n" % (userCoin, ct, cryptovalue2))
 
 
     elif sumValues <= decreasePercent:
@@ -119,7 +119,7 @@ while 1==1:
          # ct stores current time 
         ct = datetime.datetime.now() 
 
-        print("%s price as of %s - %s USD" % (userCoin, ct, cryptovalue2))
+        print("%s price as of %s - %s USD\n" % (userCoin, ct, cryptovalue2))
 
 
     else:
